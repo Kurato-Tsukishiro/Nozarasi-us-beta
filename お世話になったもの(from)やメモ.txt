@@ -1,0 +1,28 @@
+﻿お世話になったもの
+Town of host
+どうやらこれでテキストを書けるらしい
+            [HarmonyPatch(typeof(VersionShower), nameof(VersionShower.Start))]
+    class VersionShowerPatch
+    {
+        private static TMPro.TextMeshPro ErrorText;
+        static void Postfix(VersionShower __instance)
+        {
+            Nozarasius.credentialsText = "\r\n<color=" + Nozarasius.modColor + ">Nozarasi us</color>" + Nozarasius.PluginVersion + Nozarasius.VersionSuffix + "\r\n Mode:" + "<color=" + Nozarasius.modmodeColor + ">" + Nozarasius.Modmode + "</color>";
+            TextMeshPro credentials = UnityEngine.Object.Instantiate<TextMeshPro>(__instance.text);
+            credentials.text = Nozarasius.credentialsText;
+            credentials.alignment = (TextAlignmentOptions)260;
+            credentials.transform.position = new Vector3(4.3f, __instance.transform.localPosition.y + 0.3f, 0f);
+            bool flag = Nozarasius.hasArgumentException && !Nozarasius.ExceptionMessageIsShown;
+            if (flag)
+            {
+                Nozarasius.ExceptionMessageIsShown = true;
+                ErrorText = UnityEngine.Object.Instantiate<TextMeshPro>(__instance.text);
+                ErrorText.transform.position = new Vector3(0f, 0.5f, 50f);
+                ErrorText.alignment = (TextAlignmentOptions)514;
+                ErrorText.text = "エラー:Lang系DictionaryにKeyの重複が発生しています!\r\n" + Nozarasius.ExceptionMessage;
+                ErrorText.color = Color.red;
+            }
+        }
+    }
+
+    にゃあ
